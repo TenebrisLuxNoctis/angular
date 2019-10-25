@@ -2,10 +2,10 @@
   <div class="container">
     <div class="card">
       <div class="card-header card-header-danger">
-        <h4 class="card-title ">Liste</h4>
+        <h4 class="card-title ">Jeux</h4>
         <div class="row">
-          <p class="card-category col-8"> Cliquer sur un element pour accéder aux statistiques</p>
-          <button mat-raised-button matTooltip="Ajouter un jeu" color="success" class="col-4 addBtn">
+          <p class="card-category col-8"> Cliquer sur un jeu pour accéder aux statistiques</p>
+          <button mat-raised-button matTooltip="Ajouter un jeu" color="success" class="col-4 addBtn" (click)="openDialog()">
             <i class="material-icons">add</i> Ajouter
           </button>
         </div>

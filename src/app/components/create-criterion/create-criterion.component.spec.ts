@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CriteresComponent } from './criteres.component';
+import { CreateCriterionComponent } from './create-criterion.component';
 
-describe('TableListComponent', () => {
-  let component: CriteresComponent;
-  let fixture: ComponentFixture<CriteresComponent>;
+describe('CreateCriterionComponent', () => {
+  let component: CreateCriterionComponent;
+  let fixture: ComponentFixture<CreateCriterionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CriteresComponent ]
+      declarations: [ CreateCriterionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CriteresComponent);
+    fixture = TestBed.createComponent(CreateCriterionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -4,10 +4,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { CriteresComponent } from '../../criteres/criteres.component';
+import { CriterionsComponent } from '../../criterions/criterions.component';
 import { DocumentationComponent } from '../../documentation/documentation.component';
-import { IconsComponent } from '../../icons/icons.component';
-
+import { GamesComponent } from 'app/games/games.component';
+import { GameItemComponent } from 'app/components/game-item/game-item.component';
+import { CriterionExpandedComponent } from 'app/components/criterion-expanded/criterion-expanded.component';
+import { CreateCriterionComponent } from 'app/components/create-criterion/create-criterion.component';
+import { CreateGameComponent } from 'app/components/create-game/create-game.component';
+import { GameViewComponent } from 'app/components/game-view/game-view.component';
 import {
   MatButtonModule,
   MatInputModule,
@@ -17,11 +21,10 @@ import {
   MatSelectModule,
   MatCardModule,
   MatTableModule,
-  MatListModule
+  MatListModule,
+  MatDialogModule
 } from '@angular/material';
-import { GamesComponent } from 'app/games/games.component';
-import { GameItemComponent } from 'app/components/game-item/game-item.component';
-import { CriterionExpandedComponent } from 'app/components/criterion-expanded/criterion-expanded.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -36,16 +39,23 @@ import { CriterionExpandedComponent } from 'app/components/criterion-expanded/cr
     MatTooltipModule,
     MatTableModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    CreateCriterionComponent,
+    CreateGameComponent
   ],
   declarations: [
     GamesComponent,
     GameItemComponent,
+    GameViewComponent,
+    CreateGameComponent,
     DashboardComponent,
-    CriteresComponent,
+    CriterionsComponent,
     CriterionExpandedComponent,
-    DocumentationComponent,
-    IconsComponent
+    CreateCriterionComponent,
+    DocumentationComponent
   ]
 })
 
