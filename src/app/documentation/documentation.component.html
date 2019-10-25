@@ -1,0 +1,82 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header card-header-danger">
+                <h4 class="card-title">Documentation</h4>
+                <p class="card-category">Comment ça marche ?</p>
+            </div>
+            <div class="card-body">
+                <div id="typography">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <mat-list role="list">
+                                <mat-list-item role="listitem"><a href="#presence">Présence</a></mat-list-item>
+                                <mat-list-item role="listitem"><a href="#resume">Résumé</a></mat-list-item>
+                                <mat-list-item role="listitem"><a href="#game">Gestion du jeu actuel</a></mat-list-item>
+                                <mat-list-item role="listitem"><a href="#inc">Incrémentation d'un critère</a>
+                                </mat-list-item>
+                                <mat-list-item role="listitem"><a href="#dec">Décrémentation d'un critère</a>
+                                </mat-list-item>
+                                <mat-list-item role="listitem"><a href="#mute">Mode silencieux</a></mat-list-item>
+                            </mat-list>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="action" id="presence">
+                                <h3>Présence</h3><hr/>
+                                <span class="cmd">!bot</span> Teste la présence du bot
+                                <p class="explanation">Renvoie un message si le bot est présent</p>
+                            </div>
+                            <div class="action" id="resume">
+                                <h3>Résumé</h3><hr/>
+                                <span class="cmd">!resume</span> Permet d'afficher le résumé du jeu actuel
+                                <p class="explanation">Affiche l'état des compteurs pour le jeu actuel</p>
+                            </div>
+                            <div class="action" id="game">
+                                <h3>Gestion du jeu actuel</h3><hr/>
+                                <mat-list role="list">
+                                    <mat-list-item role="listitem"><span class="cmd">!setcurgame GAME</span> Change le
+                                        jeu
+                                        actuel pour GAME
+                                    </mat-list-item>
+                                    <mat-list-item role="listitem"><span class="cmd">!curgame</span> Affiche le jeu
+                                        actuel
+                                    </mat-list-item>
+                                </mat-list>
+                            </div>
+                            <div class="action" id="inc">
+                                <h3>Incrémentation d'un critère</h3><hr/>
+                                <mat-list role="list">
+                                    <mat-list-item role="listitem"><span class="cmd">!+ critere</span> Ajoute 1 au
+                                        critère
+                                    </mat-list-item>
+                                    <mat-list-item role="listitem"><span class="cmd">!+ critère valeur</span> Ajoute
+                                        valeur au
+                                        critère</mat-list-item>
+                                </mat-list>
+                            </div>
+                            <div class="action" id="dec">
+                                <h3>Décrémentation d'un critère</h3><hr/>
+                                <mat-list role="list">
+                                    <mat-list-item role="listitem"><span class="cmd">!- critere</span> Enlève 1 au
+                                        critère
+                                    </mat-list-item>
+                                    <mat-list-item role="listitem"><span class="cmd">!- critère valeur</span> Enlève
+                                        valeur au
+                                        critère</mat-list-item>
+                                </mat-list>
+                            </div>
+                            <div class="action" id="mute">
+                                <h3>Mode silencieux</h3><hr/>
+                                <span class="cmd">!mute</span> Permet d'activer/désactiver le mode silencieux
+                                <p class="explanation">Le mode silencieux permet de ne plus afficher de réponse lors de
+                                    la mise
+                                    à jour d'un critère
+                                    (une confirmation est toutefois envoyée en message privé)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

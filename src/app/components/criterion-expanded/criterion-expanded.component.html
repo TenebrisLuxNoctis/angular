@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col text-center">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Nom" [value]="criterion.Name" type="text">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Description" [value]="criterion.Description" type="text">
+    </mat-form-field>
+    <button mat-raised-button color="success" matTooltip="Sauvegarder les modifications" (click)="update()"><i class="material-icons">save_alt</i>
+      Sauvegarder</button>
+  </div>
+
+  <div class="col text-center">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Résumé" [value]="criterion.ResumeString" type="text">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Affichage" [value]="criterion.DisplayedString" type="text">
+    </mat-form-field>
+    <button mat-raised-button color="warn" matTooltip="Supprimer le critère" (click)="delete()"><i class="material-icons">delete</i>
+      Supprimer</button>
+  </div>
+</div>
