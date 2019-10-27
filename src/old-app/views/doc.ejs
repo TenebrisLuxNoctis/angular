@@ -1,0 +1,97 @@
+<% include header %>
+
+<div id="wrapper">
+    <h1 id="gameTitle" class="major">
+        <a href="/" class="back"><i class="fa fa-arrow-left"></i></a>
+        Documentation
+    </h1>
+    <h3 id="gameTitle">Dis GeekNBot, comment ça marche ?</h3>
+
+    <div class="table-wrapper">
+        <ul>
+            <li>Pour incrémenter un critère, utilisez la commande :
+                <pre>!+ critere</pre>
+            </li>
+            <li>Pour décrémenter un critère, utilisez la commande :
+                <pre>!- critere</pre>
+            </li>
+        </ul>
+        <p>
+            Vous pouvez ajouter/enlever plus rapidement via 
+            <pre>!+/- critere valeur</pre>
+        </p>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <caption>Critères disponibles</caption>
+                <tr>
+                    <th>Critère</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                criterions.forEach((row) => {
+                    %>
+                        <tr>
+                            <td class="critere"><%= row.name %></td>
+                            <td class="value"><%= row.description %></td>
+                        </tr>
+                    <%
+                })  %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-wrapper">
+        <ul>
+            <li>Pour voir le résumé du jeu actuel, utilisez la commande :
+                <pre>!resume</pre>
+            </li>
+            <li>Pour modifier le jeu actuel, utilisez la commande :
+                <pre>!setcurgame jeu</pre>
+            </li>
+        </ul>
+    </div>
+
+    <div class="table-wrapper">
+            <table>
+                <thead>
+                    <caption>Jeux disponibles</caption>
+                    <tr>
+                        <th>Jeu</th>
+                        <th>Nom complet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                    games.forEach((row) => {
+                        %>
+                            <tr>
+                                <td class="critere"><%= row.shortName %></td>
+                                <td class="value"><%= row.title %></td>
+                            </tr>
+                        <%
+                    })  %>
+                </tbody>
+            </table>
+        </div>
+
+    <div class="table-wrapper">
+        <ul>
+            <li>Pour activer/désactiver le mode silencieux, utilisez la commande :
+                    <pre>!mute</pre>
+                </li>
+            <li>Pour voir le jeu actuel, utilisez la commande :
+                <pre>!curgame</pre>
+            </li>
+            <li>Pour tester la présence du bot, utilisez la commande :
+                <pre>!bot</pre>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<% include footer %>

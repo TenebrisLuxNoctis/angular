@@ -1,0 +1,23 @@
+<% include header %>
+
+<div class="criteres-wrapper">
+        <h1 id="critereTitle" class="major"><a href="/" class="back"><i class="fa fa-arrow-left"></i></a>Ajouter un jeu</h1>
+
+        <form method="POST" action="/save">
+            <input type="text" placeholder="Entrer le nom du jeu" id="name" name="title">
+            <input type="text" placeholder="Entrer le nom cours du jeu" id="shortName" name="shortName">
+            <%
+                criterions.forEach((row) => {
+                    %>
+                        <input type="checkbox" id="<%=row.name%>" name="<%=row.id%>">
+                        <label for="<%=row.name%>"><%=row.name%></label>
+                    <%
+                });
+            %>
+            <br/>
+            <input type="hidden" value="addgame" name="action"/>
+            <input type="submit" value="Ajouter" class="button">
+        </form>
+</div>
+
+<% include footer %>

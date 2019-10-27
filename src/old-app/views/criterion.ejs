@@ -1,0 +1,35 @@
+<% include header %>
+
+<div id="wrapper">
+
+    <h1 id="gameTitle" class="major">
+        <a href="/list/criterion" class="back"><i class="fa fa-arrow-left"></i></a>
+        <%= criterion.name %>
+        <a href="/edit/criterion/<%= criterion.id %>"><i class="fa fa-edit" aria-hidden="true"></i></a>
+        <a href="/save/criterion/<%= criterion.id %>"><i class="fa fa-trash" aria-hidden="true"></i></a>
+    </h1>
+
+    <h3 id="gameTitle"><%= criterion.description %></h3><br/>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Champ</th>
+                    <th>Valeur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="critere">resumeString</td>
+                    <td class="value"><%= criterion.resumeString %></td>
+                </tr>
+                <tr>
+                        <td class="critere">displayedString</td>
+                        <td class="value"><%= criterion.displayedString %></td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <% include footer %>

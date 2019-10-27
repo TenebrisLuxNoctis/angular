@@ -1,0 +1,54 @@
+<% include header %>
+
+<%
+    var options = {
+        title: "Ajouter un critère",
+        nameValue: "",
+        resumeStringValue: "",
+        displayedStringValue: "",
+        cmdValue: "",
+        mode: "addcriteres",
+        buttonText: "Ajouter"
+    };
+
+     if (criterion != null) {
+        options = {
+            title: "Modifier un critère",
+            nameValue: `value="${criterion.name}"`,
+            resumeStringValue: `value="${criterion.resumeString}"`,
+            displayedStringValue: `value="${criterion.displayedString}"`,
+            descriptionValue: `value="${criterion.description}"`,
+            mode: "editcriterion",
+            buttonText: "Modifier"
+        }
+    }
+    %>
+</script>
+
+<div class="criteres-wrapper">
+    <h1 id="critereTitle" class="major">
+        <a href="/" class="back"><i class="fa fa-arrow-left"></i></a>
+        <%= options.title %>
+    </h1>
+
+    <form method="POST" action="/save">
+        <input type="text" placeholder="Entrer le nom du critere" id="name" name="name" <%- options.nameValue %>>
+        <input type="text" placeholder='Entrez une description ("nombre de morts")' id="description" name="description"
+            <%- options.descriptionValue %>>
+        <input type="text" placeholder="Entrez la chaîne pour le résumé (duel# raté#)" id="resume" name="resumeString"
+            <%- options.resumeStringValue %>>
+        <input type="text"
+            placeholder="Entrez la chaîne pour afficher le compteur (Seulement § mission# échouée#, c\'est fou ! Kappa)"
+            id="showString" name="displayedString" <%- options.displayedStringValue %>>
+        <input type="hidden" value="<%= options.mode %>" name="action" />
+        <% if(criterion != null){
+                %>
+        <input type="hidden" value="<%= criterion.id %>" name="criterionId" />
+        <%
+            }
+            %>
+        <input type="submit" value="<%= options.buttonText %>" class="button">
+    </form>
+</div>
+
+<% include footer %>

@@ -3,6 +3,7 @@ import { Game } from 'app/models/game';
 import { MatDialog } from '@angular/material';
 import { NotificationService, From, Align, Type } from 'app/services/notification/notification.service';
 import { CreateGameComponent } from 'app/components/create-game/create-game.component';
+import { DatabaseService } from 'app/services/database/database.service';
 
 @Component({
   selector: 'app-games',
@@ -13,17 +14,16 @@ export class GamesComponent implements OnInit {
 
   public games: Game[] = [];
   private game: Game;
+  private business: any;
 
   constructor(
     public dialog: MatDialog,
-    public notif: NotificationService
-  ) { 
+    private notif: NotificationService,
+  ) {
 
-    this.games.push(new Game("Titre 1"));
-    this.games.push(new Game("Titre 2"));
-    this.games.push(new Game("Titre 3"));
-    this.games.push(new Game("Titre 4"));
-    this.games.push(new Game("Titre 5"));
+    this.business = DatabaseService.getInstance();
+
+    this.getGames();
 
     this.resetGame();
   }
@@ -39,7 +39,7 @@ export class GamesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      if (result != undefined){
+      if (result != undefined) {
         this.game = result;
         this.notif.showNotification("Nous ne sommes pas en mesure d'effectuer cette action", From.Top, Align.Center, Type.Danger);
       }
@@ -54,5 +54,13 @@ export class GamesComponent implements OnInit {
       Title: "",
       ShortName: ""
     };
+  }
+
+  private getGames() {
+    this.business.GameQuery.getGamesList(function (rows) {
+      rows.array.forEach(row => {
+        this.games.push(new Game(row.id));
+      });
+    });
   }
 }
