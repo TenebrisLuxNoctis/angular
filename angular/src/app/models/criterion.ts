@@ -7,11 +7,11 @@ export class Criterion {
     public isExpanded: boolean;
 
     constructor(name: string) {
-        this.id = 1;
+        this.id = 0;
         this.name = name;
-        this.description = "Champ de description du critère";
-        this.resumeString = "test# pour la science";
-        this.displayedString = "& " + name + "# pour la science";
+        this.description = "";
+        this.resumeString = "";
+        this.displayedString = "";
         this.isExpanded = false;
     }
 }

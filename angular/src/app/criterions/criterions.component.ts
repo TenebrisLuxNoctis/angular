@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { CreateCriterionComponent } from 'app/components/create-criterion/create-criterion.component';
 import { NotificationService, From, Align, Type } from 'app/services/notification/notification.service';
 import { ApiService } from 'app/services/api/api.service';
+import { Message } from 'app/models/message';
 
 @Component({
   selector: 'app-criterions',
@@ -22,7 +23,7 @@ export class CriterionsComponent implements OnInit {
 
   public criterions: Criterion[] = [];
   public columnsToDisplay = ['name', 'description'];
-  private criterion: Criterion;
+  private criterion: Criterion = new Criterion("");
 
   constructor(
     public dialog: MatDialog,
@@ -30,42 +31,39 @@ export class CriterionsComponent implements OnInit {
     private api: ApiService
   ) {
     this.getCriterions();
-
-    this.resetCriterion();
   }
 
   ngOnInit() {
   }
 
-  public openDialog(): void {
+  public async openDialog() {
     const dialogRef = this.dialog.open(CreateCriterionComponent, {
       // width: '250px',
       data: this.criterion
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(async result => {
       if (result != undefined) {
+
         this.criterion = result;
-        this.notif.showNotification("Nous ne sommes pas en mesure d'effectuer cette action", From.Top, Align.Center, Type.Danger);
+        let msg: Message = await this.api.POST('/criterion', this.criterion);
+        if (msg.msg === "OK") {
+          this.notif.showNotification("Le critère a bien été créé", From.Top, Align.Center, Type.Success);
+          this.criterions = this.criterions.concat([this.criterion]);
+        }
+        else
+          this.notif.showNotification("Une erreur est survenue lors de la création !", From.Top, Align.Center, Type.Danger);
       }
 
-      this.resetCriterion();
+      this.criterion = new Criterion("");
     });
-  }
-
-  private resetCriterion() {
-    this.criterion = {
-      id: 0,
-      description: "",
-      displayedString: "",
-      name: "",
-      resumeString: "",
-      isExpanded: false
-    };
   }
 
   private async getCriterions() {
     this.criterions = await this.api.GET<Criterion[]>('/criterion/list');
+  }
+
+  public OnItemDelete(id: number) {
+    this.criterions = this.criterions.filter(function (elt) { return elt.id != id })
   }
 }

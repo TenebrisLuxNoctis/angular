@@ -11,7 +11,7 @@ var bot = new Bot(business)
 var corsOptions = {
     origin: 'http://localhost:4200',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
+}
 
 app
     .use(bodyParser.urlencoded({ extended: false }))
@@ -86,9 +86,13 @@ app
             res.status(404);
     })
     .post('/criterion', function (req, res) {
-        business.criterionAction.addCriterion(req.body, function (msg) {
-            res.end(JSON.stringify(msg));
-        })
+        if (req.body) {
+            business.criterionAction.addCriterion(req.body, function (msg) {
+                res.end(JSON.stringify(msg));
+            })
+        }
+        else
+            res.end(JSON.stringify({ msg: "415 : no object provided" }));
     })
     .post('/criterion/:criterionId', function (req, res) {
         //Si un paramètre a été fourni
@@ -102,7 +106,7 @@ app
     })
     .delete('/criterion/:criterionId', function (req, res) {
         //Si un paramètre a été fourni
-        if (req.params.gameId.length > 0) {
+        if (req.params.criterionId.length > 0) {
             business.criterionAction.deleteCriterion(req.params.criterionId, function (msg) {
                 res.end(JSON.stringify(msg));
             })
@@ -113,7 +117,7 @@ app
 
 
     .use(function (req, res, next) {
-        res.status(404).end(JSON.stringify({msg: "404 not found"}));
+        res.status(404).end(JSON.stringify({ msg: "404 not found" }));
     })
     .listen(8080)
 

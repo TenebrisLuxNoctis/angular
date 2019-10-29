@@ -3,19 +3,19 @@
   <div class="row">
     <div class="col text-center">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Nom" [value]="data.Name" type="text">
+        <input matInput placeholder="Nom" [(ngModel)]="data.name" type="text">
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Description" [value]="data.Description" type="text">
+        <input matInput placeholder="Description" [(ngModel)]="data.description" type="text">
       </mat-form-field>
     </div>
 
     <div class="col text-center">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Résumé" [value]="data.ResumeString" type="text">
+        <input matInput placeholder="Résumé" [(ngModel)]="data.resumeString" type="text">
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Affichage" [value]="data.DisplayedString" type="text">
+        <input matInput placeholder="Affichage" [(ngModel)]="data.displayedString" type="text">
       </mat-form-field>
     </div>
   </div>
