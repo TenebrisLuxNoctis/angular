@@ -58,10 +58,20 @@ app
         else
             res.status(404);
     })
-    .post('/game/:gameId/criterions', function (req, res) {
+    .get('/game/:gameId/criterions', function(req, res) {
         //Si un paramètre a été fourni
         if (req.params.gameId.length > 0) {
-            business.gameAction.updateGameCriterions(req.body.game, ids, function (msg) {
+            business.gameQuery.getGamesCriterions(req.params.gameId, function (rows) {
+                res.end(JSON.stringify(rows));
+            })
+        }
+        else
+            res.status(404);
+    })
+    .post('/game/:gameId', function (req, res) {
+        //Si un paramètre a été fourni
+        if (req.params.gameId.length > 0) {
+            business.gameAction.updateGame(req.body, function (msg) {
                 res.end(JSON.stringify(msg));
             })
         }

@@ -1,18 +1,46 @@
 .card {
+  .delete,
+  .edit {
+    display: none;
+    position: absolute;
+    top: 16px;
+  }
+
+  .delete {
+    right: 0;
+  }
+
+  .edit {
+    right: calc(6px + 36px);
+    background-color: orange;
+    color: white;
+  }
+
   &:hover {
     box-shadow: 1px 1px 1px 1px #f44336;
     background-color: #80808017;
     cursor: pointer;
     opacity: 0.8;
+
+    .delete,
+    .edit {
+      display: block;
+      opacity: 1;
+    }
   }
 
   h5 {
+    display: block;
+    width: inherit;
+
     text-align: center;
 
     text-overflow: ellipsis;
-    word-wrap: break-word;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    white-space: nowrap;
 
-    // overflow: hidden;
+    overflow: hidden;
     max-height: 30px;
     line-height: 1.8em;
   }

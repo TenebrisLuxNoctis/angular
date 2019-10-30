@@ -23,10 +23,10 @@ export class CriterionExpandedComponent implements OnInit {
   public async delete() {
     let response = await this.api.DELETE('/criterion/' + this.criterion.id);
     if (response.msg === "OK") {
-      this.notif.showNotification("Le critère a bien été supprimé", From.Top, Align.Center, Type.Success)
+      this.notif.showNotification("Le critère a bien été supprimé", From.Top, Align.Center, Type.Success);
       this.deletion.emit(this.criterion.id);
     } else
-      this.notif.showNotification("Une erreur est survenue lors de la suppression du critère", From.Top, Align.Center, Type.Danger)
+      this.notif.showNotification("Une erreur est survenue lors de la suppression du critère", From.Top, Align.Center, Type.Danger);
   }
 
   public async update() {
@@ -36,7 +36,7 @@ export class CriterionExpandedComponent implements OnInit {
       this.criterion.isExpanded = false;
     }
     else
-      this.notif.showNotification("Une erreur est survenue lors de la modification", From.Top, Align.Center, Type.Danger)
+      this.notif.showNotification("Une erreur est survenue lors de la modification", From.Top, Align.Center, Type.Danger);
   }
 
   ngOnInit() {

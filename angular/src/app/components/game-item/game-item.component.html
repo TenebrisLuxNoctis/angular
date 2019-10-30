@@ -1,13 +1,10 @@
-  <mat-card class="example-card card" (click)="View()">
-    <!-- <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header> -->
-    <img mat-card-image src="/assets/img/404_boxart-429x572.jpg" alt="IMAGE">
-    <mat-card-content>
-      <h5>
-        {{game.title}}
-      </h5>
-    </mat-card-content>
-  </mat-card>
+<mat-card class="example-card card" (click)="View()">
+  <button mat-mini-fab color="warn" matTooltip="Supprimer le jeu" class="delete" (click)="deleteGame()" click-stop-propagation><i class="material-icons">delete</i></button>
+  <button mat-mini-fab [color]="orange" matTooltip="Modifier le jeu" class="edit" (click)="editGame()" click-stop-propagation><i class="material-icons">edit</i></button>
+  <img mat-card-image src="/assets/img/404_boxart-429x572.jpg" alt="IMAGE"/>
+  <mat-card-content>
+    <h5 matTooltip="{{game.title}}">
+      {{game.title}}
+    </h5>
+  </mat-card-content>
+</mat-card>

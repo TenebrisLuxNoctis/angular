@@ -23,7 +23,7 @@ export class CriterionsComponent implements OnInit {
 
   public criterions: Criterion[] = [];
   public columnsToDisplay = ['name', 'description'];
-  private criterion: Criterion = new Criterion("");
+  private criterion: Criterion = new Criterion();
 
   constructor(
     public dialog: MatDialog,
@@ -38,13 +38,11 @@ export class CriterionsComponent implements OnInit {
 
   public async openDialog() {
     const dialogRef = this.dialog.open(CreateCriterionComponent, {
-      // width: '250px',
       data: this.criterion
     });
 
     dialogRef.afterClosed().subscribe(async result => {
       if (result != undefined) {
-
         this.criterion = result;
         let msg: Message = await this.api.POST('/criterion', this.criterion);
         if (msg.msg === "OK") {
@@ -55,7 +53,7 @@ export class CriterionsComponent implements OnInit {
           this.notif.showNotification("Une erreur est survenue lors de la création !", From.Top, Align.Center, Type.Danger);
       }
 
-      this.criterion = new Criterion("");
+      this.criterion = new Criterion();
     });
   }
 

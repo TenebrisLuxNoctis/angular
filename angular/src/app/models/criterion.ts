@@ -6,9 +6,9 @@ export class Criterion {
     public displayedString: string;
     public isExpanded: boolean;
 
-    constructor(name: string) {
+    constructor() {
         this.id = 0;
-        this.name = name;
+        this.name = "";
         this.description = "";
         this.resumeString = "";
         this.displayedString = "";

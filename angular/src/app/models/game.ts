@@ -2,10 +2,12 @@ export class Game {
     public id: number;
     public title: string;
     public shortName: string;
+    public criteres: number[];
 
-    constructor(title: string) {
+    constructor() {
         this.id = 0;
-        this.shortName = "shortcut";
-        this.title = title;
+        this.shortName = "";
+        this.title = "";
+        this.criteres = [];
     }
 }

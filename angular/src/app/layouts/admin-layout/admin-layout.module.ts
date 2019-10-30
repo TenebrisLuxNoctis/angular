@@ -22,8 +22,10 @@ import {
   MatCardModule,
   MatTableModule,
   MatListModule,
+  MatCheckboxModule,
   MatDialogModule
 } from '@angular/material';
+import { ClickStopPropagation } from 'app/directives/stop-propagation/stop-propagation.directive';
 
 @NgModule({
   imports: [
@@ -40,6 +42,7 @@ import {
     MatTableModule,
     MatCardModule,
     MatListModule,
+    MatCheckboxModule,
     MatDialogModule
   ],
   entryComponents: [
@@ -55,7 +58,8 @@ import {
     CriterionsComponent,
     CriterionExpandedComponent,
     CreateCriterionComponent,
-    DocumentationComponent
+    DocumentationComponent,
+    ClickStopPropagation
   ]
 })
 

@@ -1,26 +1,28 @@
 <h1 mat-dialog-title>Ajouter un nouveau jeu</h1>
 <div mat-dialog-content>
-  <!-- <div class="row">
-    <div class="col text-center">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Nom" [value]="data.Name" type="text">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Description" [value]="data.Description" type="text">
-      </mat-form-field>
-    </div> -->
-
-    <div class="col text-center">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Titre" [value]="data.Title" type="text">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Nom abrégé" [value]="data.ShortName" type="text">
-      </mat-form-field>
+  <div class="col text-center">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Titre" [(ngModel)]="data.game.title" type="text">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Nom abrégé" [(ngModel)]="data.game.shortName" type="text">
+    </mat-form-field>
+    <h3>Critères</h3>
+    <div class= "row">
+        <div class="form-check" *ngFor="let criterion of criterions">
+            <label class="form-check-label" matTooltip="{{criterion.description}}">
+              <input class="form-check-input" type="checkbox" (click)="handleCriterion(criterion.id)"
+                [value]="check(criterion.id)" [checked]="check(criterion.id)">
+              <span class="form-check-sign">
+                <span class="check"></span>
+              </span>
+              {{criterion.name}}
+            </label>
+          </div>
     </div>
-  <!-- </div> -->
-</div>
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Créer</button>
-  <button mat-button (click)="onNoClick()">Annuler</button>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]=" data.game" cdkFocusInitial>{{action}}</button>
+    <button mat-button (click)="onNoClick()">Annuler</button>
+  </div>
 </div>

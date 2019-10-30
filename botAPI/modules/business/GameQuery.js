@@ -9,7 +9,7 @@ module.exports = class GameQuery {
      * @param {function} callback 
      */
     getGamesList(callback) {
-        var sql = `SELECT id, title, shortName FROM games ORDER BY id ASC`;
+        var sql = `SELECT id, title, shortName FROM games ORDER BY id DESC`;
         this.db.all(sql, [], (err, rows) => {
             if (err) {
                 return console.error(err.message);
@@ -50,6 +50,26 @@ module.exports = class GameQuery {
             }
             callback(rows);
         });
+    }
+
+    /**
+     * Récupère la liste des Ids des critères d'un jeu
+     * @param {number} gameId 
+     * @param {function} callback 
+     */
+    getGamesCriterions(gameId, callback) {
+        var sql = `SELECT critereId From stats WHERE gameId = ?`;
+
+        this.db.all(sql, [gameId], (err, rows) => {
+            if(err) {
+                return console.error(err.message);
+            }
+            var result = [];
+            rows.forEach(element => {
+                result.push(element.critereId);
+            });
+            callback(result);
+        })
     }
 
 }

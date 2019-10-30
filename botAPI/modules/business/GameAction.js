@@ -1,37 +1,71 @@
 module.exports = class GameAction {
 
-    constructor(db){
+    constructor(db) {
         this.db = db;
     }
 
     /**
-     * Ajoute des critères sur un jeu (ne peut pas en supprimer !!!)
-     * @param {string} game 
-     * @param {Array} criteres 
+     * Met un jeu à jour
+     * @param {Game} game 
      * @param {function} callback 
      */
-    updateGameCriterions(game, criteres, callback) {
+    updateGame(game, callback) {
         var db = this.db;
-        db.all(`SELECT criteres.id, gameid FROM criteres JOIN stats ON critereid = criteres.id JOIN games ON gameid = games.id WHERE title = ?`, [game], function (err, rows) {
+        db.run(`UPDATE games SET title= ?, shortName= ? WHERE id= ?`, [game.title, game.shortName, game.id], function (err) {
             if (err) {
-                callback(err.message); return;
+                callback({ msg: err.message }); return;
             }
 
-            var add = "";
-            criteres.forEach(element => {
-                if (rows.length == 0 || rows.indexOf(element) == -1) //Si le critère n'existe pas sur le jeu
-                    add += ` (${rows[0].gameId}, ${element}, 0),`;
-            });
-
-            if (add != "")
-                add = add.substring(0, add.length - 1);
-            db.run(`INSERT INTO stats(gameId, critereId, value) VALUES` + add, [], function (err) {
+            //Mise à jour des critères
+            db.all(`SELECT critereId FROM stats WHERE gameId = ?`, [game.id], function (err, rows) {
                 if (err) {
-                    callback(err.message); return;
+                    callback({ msg: err.message }); return;
                 }
-                callback(`Les critères ont bien été mis à jour pour ${game}`);
+                var old = [];
+                var nouv = game.criteres;
+                rows.forEach(element => {
+                    old.push(element.critereId);
+                });
+    
+                var toDelete = old.filter(function (elt) {
+                    return nouv.indexOf(elt) == -1
+                });
+                var toAdd = nouv.filter(function (elt) {
+                    return old.indexOf(elt) == -1;
+                });
+    
+                if (toAdd.length > 0) {
+                    var add = "";
+                    toAdd.forEach(element => {
+                        add += ` (${game.id}, ${element}, 0),`;
+                    });
+    
+                    add = add.substring(0, add.length - 1);
+                    db.run(`INSERT INTO stats(gameId, critereId, value) VALUES` + add, [], function (err) {
+                        if (err) {
+                            callback({ msg: err.message }); return;
+                        }
+    
+                        if (toDelete.length > 0) {
+                            var del = "";
+                            toDelete.forEach(element => {
+                                del += `${element},`;
+                            });
+                            del = del.substring(0, del.length - 1);
+                            del += ')';
+                            db.run(`DELETE FROM stats WHERE gameId = ? AND critereId IN (` + del, [game.id], function (err) {
+                                if (err) {
+                                    callback({ msg: err.message }); return;
+                                }
+                                callback({ msg: "OK" });
+                            });
+                        }
+                        else
+                            callback({ msg: "OK" });
+                    });
+                }
             });
-        });
+        })
     }
 
     /**
@@ -43,7 +77,7 @@ module.exports = class GameAction {
         var db = this.db
         db.run(`INSERT INTO games(title, shortName, statusEnd) VALUES(?, ?, ?)`, [game.title, game.shortName, 0], function (err) {
             if (err) {
-                callback(err.message); return;
+                callback({ msg: err.message }); return;
             }
 
             var gameId = this.lastID;
@@ -54,11 +88,12 @@ module.exports = class GameAction {
                 sql += ` (${gameId}, ${tab[critere]}, 0),`;
             }
             sql = sql.substring(0, sql.length - 1);
+
             db.run(sql, [], function (err) {
                 if (err) {
-                    callback(err.message); return;
+                    callback({ msg: err.message }); return;
                 }
-                callback("Le jeu a bien été ajouté !");
+                callback({ msg: "OK", id: gameId });
             });
         });
     }
@@ -72,13 +107,13 @@ module.exports = class GameAction {
         var db = this.db
         db.run(`DELETE FROM stats WHERE gameId = ?`, [gameId], function (err) {
             if (err) {
-                callback(err.message); return;
+                callback({ msg: err.message }); return;
             }
             db.run(`DELETE FROM games WHERE id = ?`, [gameId], function (err) {
                 if (err) {
-                    callback(err.message); return;
+                    callback({ msg: err.message }); return;
                 }
-                callback("Le jeu a bien été supprimé !");
+                callback({ msg: "OK" });
             });
         });
     }
