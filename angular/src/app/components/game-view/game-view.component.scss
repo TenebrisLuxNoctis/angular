@@ -1,0 +1,59 @@
+#return {
+    cursor: pointer;
+    color: #0b9ad5;
+    text-decoration: underline;
+
+    &:hover {
+        color: #e89512;
+        font-style: italic;
+    }
+}
+
+::ng-deep .mat-slide-toggle-label{
+    color: white!important;
+}
+
+.status {
+    position: absolute!important;
+    right: 10px;
+    top : 15px;
+    max-width: 20%;
+}
+
+.game-poster {
+    width: 144px;
+    height: 192px;
+    padding: 0;
+    margin: 10px;
+}
+
+.stats {
+    list-style: none;
+    margin: 10px;
+    padding: 0;
+
+    .value {
+        color: #d34700; 
+        font-weight: bold;
+    }
+
+    li {
+        width: 100%;
+        font-size: 1.5em;
+        background-color: #eeeeee6e;
+        padding: 5px;
+        margin-bottom: 3px;
+
+        &::first-letter{
+            text-transform: uppercase;
+        }
+
+        &:nth-child(even) {
+            text-align: right;
+        }
+
+        &:nth-child(odd) {
+            text-align: left;
+        }
+    }
+}

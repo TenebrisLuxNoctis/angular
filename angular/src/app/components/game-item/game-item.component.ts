@@ -15,17 +15,22 @@ export class GameItemComponent implements OnInit {
   @Output() deletion = new EventEmitter();
   @Output() edition = new EventEmitter();
 
+  public img = "";
+
   constructor(
     private router: Router,
     private api: ApiService,
     private notif: NotificationService
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit() {
+    this.img = (this.game.title).replace(/ /g, "%20");
   }
 
   public View() {
-    this.router.navigate(['games', 'view']);
+    this.router.navigate(['games', this.game.id]);
   }
 
   public async deleteGame() {

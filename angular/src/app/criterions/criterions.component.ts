@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Criterion } from 'app/models/criterion';
 import { trigger, state, transition, style, animate } from '@angular/animations';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { CreateCriterionComponent } from 'app/components/create-criterion/create-criterion.component';
 import { NotificationService, From, Align, Type } from 'app/services/notification/notification.service';
 import { ApiService } from 'app/services/api/api.service';
@@ -21,7 +21,7 @@ import { Message } from 'app/models/message';
 })
 export class CriterionsComponent implements OnInit {
 
-  public criterions: Criterion[] = [];
+  public dataSource: MatTableDataSource<Criterion>;
   public columnsToDisplay = ['name', 'description'];
   private criterion: Criterion = new Criterion();
 
@@ -47,7 +47,10 @@ export class CriterionsComponent implements OnInit {
         let msg: Message = await this.api.POST('/criterion', this.criterion);
         if (msg.msg === "OK") {
           this.notif.showNotification("Le critère a bien été créé", From.Top, Align.Center, Type.Success);
-          this.criterions = this.criterions.concat([this.criterion]);
+          let criterions: Criterion[] = this.dataSource.data;
+          criterions.push(this.criterion);
+          this.dataSource.data = criterions;
+
         }
         else
           this.notif.showNotification("Une erreur est survenue lors de la création !", From.Top, Align.Center, Type.Danger);
@@ -58,10 +61,14 @@ export class CriterionsComponent implements OnInit {
   }
 
   private async getCriterions() {
-    this.criterions = await this.api.GET<Criterion[]>('/criterion/list');
+    this.dataSource = new MatTableDataSource(await this.api.GET<Criterion[]>('/criterion/list'));
   }
 
   public OnItemDelete(id: number) {
-    this.criterions = this.criterions.filter(function (elt) { return elt.id != id })
+    this.dataSource.data = this.dataSource.data.filter(function (elt) { return elt.id != id })
+  }
+
+  public applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

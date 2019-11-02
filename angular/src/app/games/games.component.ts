@@ -14,6 +14,8 @@ import { Message } from 'app/models/message';
 export class GamesComponent implements OnInit {
 
   public games: Game[] = [];
+  public filteredGames: Game[] = [];
+
   private game: Game = new Game();
   private edit: boolean = false;
 
@@ -52,11 +54,14 @@ export class GamesComponent implements OnInit {
           let msg: Message = await this.api.POST(url, this.game);
           if (msg.msg === "OK") {
             this.notif.showNotification("Le jeu a bien été " + action, From.Top, Align.Center, Type.Success);
-            if (!this.edit)
-              this.games.push(this.game);
+            if (!this.edit) {
+              this.game.id = msg.id;
+              this.games.unshift(this.game);
+              this.applyFilter("");
+            }
             else {
-              this.games.forEach(function(elt, index){
-                if(elt.id == this.game.id)
+              this.games.forEach(function (elt, index) {
+                if (elt.id == this.game.id)
                   this.games[index] = this.game;
               });
             }
@@ -75,17 +80,28 @@ export class GamesComponent implements OnInit {
 
   private async getGames() {
     this.games = await this.api.GET<Game[]>('/game/list');
+    this.filteredGames = this.games;
   }
 
   public OnDelete(id: number) {
     this.games = this.games.filter(function (elt) {
       return elt.id != id;
     });
+    this.applyFilter("");
   }
 
   public OnEdit(game: Game) {
     this.game = game;
     this.edit = true;
     this.openDialog();
+  }
+
+  public applyFilter(filterValue: string) {
+    if (filterValue != "")
+      this.filteredGames = this.games.filter(function (g) {
+        return g.title.toLowerCase().indexOf(filterValue.toLowerCase()) > -1;
+      });
+    else
+      this.filteredGames = this.games;
   }
 }

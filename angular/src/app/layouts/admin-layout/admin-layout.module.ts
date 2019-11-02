@@ -23,7 +23,8 @@ import {
   MatTableModule,
   MatListModule,
   MatCheckboxModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import { ClickStopPropagation } from 'app/directives/stop-propagation/stop-propagation.directive';
 
@@ -43,6 +44,7 @@ import { ClickStopPropagation } from 'app/directives/stop-propagation/stop-propa
     MatCardModule,
     MatListModule,
     MatCheckboxModule,
+    MatSlideToggleModule,
     MatDialogModule
   ],
   entryComponents: [

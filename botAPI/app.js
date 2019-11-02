@@ -31,12 +31,7 @@ app
             business.gameQuery.getGameById(req.params.gameId, function (game) {
                 // var url = game[0].title.replace(/ /gi, "%20")
                 business.gameQuery.getGameStats(req.params.gameId, function (stats) {
-                    if (stats && stats.length > 0)
-                        business.criterionQuery.getCriterionsList(function (crits) {
-                            res.end(JSON.stringify({ title: game[0].title, id: req.params.gameId, gameStats: stats, gameCrits: crits }));
-                        })
-                    else
-                        res.status(404);
+                    res.end(JSON.stringify({ title: game[0].title, id: req.params.gameId, ended: (game[0].statusEnd==1), gameStats: stats}));
                 });
             });
         }
@@ -72,6 +67,16 @@ app
         //Si un paramètre a été fourni
         if (req.params.gameId.length > 0) {
             business.gameAction.updateGame(req.body, function (msg) {
+                res.end(JSON.stringify(msg));
+            })
+        }
+        else
+            res.status(404);
+    })
+    .post('/game/:gameId/status', function(req, res){
+        //Si un paramètre a été fourni
+        if (req.params.gameId.length > 0) {
+            business.gameAction.updateGameState(req.params.gameId, req.body.status, function (msg) {
                 res.end(JSON.stringify(msg));
             })
         }
@@ -131,4 +136,4 @@ app
     })
     .listen(8080)
 
-//bot.run()
+bot.run()

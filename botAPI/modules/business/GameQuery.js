@@ -24,7 +24,7 @@ module.exports = class GameQuery {
      * @param {function} callback 
      */
     getGameById(gameId, callback) {
-        var sql = `SELECT title FROM games WHERE games.id = ?`;
+        var sql = `SELECT title, statusEnd FROM games WHERE games.id = ?`;
 
         this.db.all(sql, [gameId], (err, rows) => {
             if (err) {
@@ -40,7 +40,7 @@ module.exports = class GameQuery {
      * @param {function} callback 
      */
     getGameStats(gameId, callback) {
-        var sql = `SELECT criteres.id, name, value, description, resumeString FROM stats 
+        var sql = `SELECT criteres.id, name, value, description FROM stats 
         JOIN criteres ON stats.critereId = criteres.id 
         JOIN games ON games.id = stats.gameId WHERE games.id = ?`;
 

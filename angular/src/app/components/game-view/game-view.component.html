@@ -1,3 +1,22 @@
-<p>
-  game-view works!
-</p>
+<div class="main-content">
+  <div class="container">
+    <a (click)="redirectToList()" id="return">Retour à la liste</a>
+    <div class="card">
+      <div class="card-header card-header-danger">
+        <h4 class="card-title ">{{game.title}}</h4>
+        <div class="row">
+            <mat-slide-toggle color="primary" class="col-4 status" [checked]="status" (click)="changeStatus()">{{statusText}}</mat-slide-toggle>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+            <img mat-card-image src="https://static-cdn.jtvnw.net/ttv-boxart/{{img}}-144x192.jpg" alt="{{game.title}}" class="game-poster col-md-auto"/>
+
+            <ul class="stats col">
+              <li *ngFor="let stat of game.gameStats">{{stat.description}} : <span class="value">{{stat.value}}</span></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

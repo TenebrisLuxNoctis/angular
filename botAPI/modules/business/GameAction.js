@@ -104,7 +104,7 @@ module.exports = class GameAction {
      * @param {function} callback 
      */
     deleteGame(gameId, callback) {
-        var db = this.db
+        var db = this.db;
         db.run(`DELETE FROM stats WHERE gameId = ?`, [gameId], function (err) {
             if (err) {
                 callback({ msg: err.message }); return;
@@ -115,6 +115,22 @@ module.exports = class GameAction {
                 }
                 callback({ msg: "OK" });
             });
+        });
+    }
+
+    /**
+     * Met à jour le statut d'un jeu
+     * @param {number} gameId 
+     * @param {boolean} status 
+     * @param {function} callback 
+     */
+    updateGameState(gameId, status, callback) {
+        var db = this.db;
+        db.run(`UPDATE games SET statusEnd = ? WHERE id = ?`, [status, gameId], function(err){
+            if (err) {
+                callback({ msg: err.message }); return;
+            }
+            callback({ msg: "OK" });
         });
     }
 }

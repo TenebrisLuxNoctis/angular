@@ -16,7 +16,7 @@ module.exports = class CriterionAction {
                 if (err) {
                     callback({ msg: err.message }); return;
                 }
-                callback({ msg: "OK" });
+                callback({ msg: "OK", id: this.lastID });
             });
         });
     }

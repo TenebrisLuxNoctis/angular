@@ -5,14 +5,19 @@
         <h4 class="card-title ">Jeux</h4>
         <div class="row">
           <p class="card-category col-8"> Cliquer sur un jeu pour accéder aux statistiques</p>
-          <button mat-raised-button matTooltip="Ajouter un jeu" color="success" class="col-4 addBtn" (click)="openDialog()">
+          <button mat-raised-button matTooltip="Ajouter un jeu" color="success" class="col-4 addBtn"
+            (click)="openDialog()">
             <i class="material-icons">add</i> Ajouter
           </button>
         </div>
       </div>
       <div class="card-body">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
+        </mat-form-field>
+
         <div class="fluid">
-          <div *ngFor="let game of games" class="game">
+          <div *ngFor="let game of filteredGames" class="game">
             <app-game-item [game]="game" (deletion)="OnDelete($event)" (edition)="OnEdit($event)"></app-game-item>
           </div>
         </div>
