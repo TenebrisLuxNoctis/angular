@@ -17,7 +17,7 @@ module.exports = class Bot {
             },
             channels: [
                 "mastersnakou"
-                //"tenebrisluxnoctis"
+                // "tenebrisluxnoctis"
             ]
         };
 
